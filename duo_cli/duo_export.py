@@ -13,11 +13,21 @@ def main():
     file_json = os.path.join(home, ".config/duo/response.json")
     file_token = os.path.join(home, ".config/duo/duotoken.hotp")
 
-    with open(file_json, "r") as f:
-        response = json.loads(f.read())["response"]
+    try:
+        with open(file_json, "r") as f:
+            response = json.loads(f.read())["response"]
+    except FileNotFoundError:
+        sys.exit("Exit due to response JSON file not found")
+    except PermissionError:
+        sys.exit("Exit due to permission denied to access response JSON file")
 
-    with open(file_token, "r") as f:
-        counter = int(f.readlines()[1])
+    try:
+        with open(file_token, "r") as f:
+            counter = int(f.readlines()[1])
+    except FileNotFoundError:
+        sys.exit("Exit due to token file not found")
+    except PermissionError:
+        sys.exit("Exit due to permission denied to access token file")
 
     label = response["customer_name"]
     issuer = "Duo"

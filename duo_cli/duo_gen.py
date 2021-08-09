@@ -12,7 +12,13 @@ def main():
         home = os.path.expanduser("~")
         file_token = os.path.join(home, ".config/duo/duotoken.hotp")
 
-    f = open(file_token, "r+")
+    try:
+        f = open(file_token, "r+")
+    except FileNotFoundError:
+        sys.exit("Exit due to token file not found")
+    except PermissionError:
+        sys.exit("Exit due to permission denied to access token file")
+
     secret = f.readline()[0:-1]
     offset = f.tell()
     count = int(f.readline())
