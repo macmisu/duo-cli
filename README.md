@@ -1,4 +1,4 @@
-## Duo One Time Password Generator
+## Duo HOTP Password Generator
 
 This is a little script I put together after I reverse engineered the Duo 2FA
 Mobile App and figured out how their auth flow works. This can be ported into
@@ -10,7 +10,11 @@ write bots for MIT Services that require auth.
 Install stuff,
 
 ```
-pip install -r requirements.txt
+pipx install git+https://github.com/macmisu/duo-cli
+```
+or
+```
+pip install git+https://github.com/macmisu/duo-cli
 ```
 
 Grab the URL sent to you by email when adding the device (it might look like
